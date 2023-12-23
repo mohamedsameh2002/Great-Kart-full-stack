@@ -1,0 +1,8 @@
+{% autoescape off %}
+Hi {{user.first_name}} 
+
+pleas click on below to confrom th regestration.
+http://{{domin}}{% url 'activate' uidb64=uid token=token %}
+
+if you think it is not u pleas ignor thes email (:
+{% endautoescape %}

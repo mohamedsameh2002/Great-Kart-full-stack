@@ -1,0 +1,156 @@
+<style>
+    .dsgsdg {
+        height:500px; /* تغيير الارتفاع حسب الحاجة */
+      }
+</style>
+
+
+    <div class="container">
+
+        <!-- ============================ COMPONENT 1 ================================= -->
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="row dsgsdg">
+            <aside class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Requester information</h4>
+                        <form action="{% url 'go_pyment' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="col form-group">
+                                    <label for="">First Name</label>
+                                    
+                                    <input type="text" name="first_name" class="bor8 bg0 m-b-12" style="font-size: 15px; width: 300px; height: 35px ;" required>                                </div>
+                                <div class="col form-group">
+                                    <label for="">Last Name</label>
+                                    <input type="text" name="last_name" class="bor8 bg0 m-b-12" style="font-size: 15px; width: 300px; height: 35px ;"  required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col form-group">
+                                    <label for="">Email</label>
+                                    <input type="email" name="email" class="bor8 bg0 m-b-12" style="font-size: 15px; width: 300px; height: 35px ; padding-right: 5px;" placeholder="Name@Example.com"  required>
+                                </div>
+                                <div class="col form-group">
+                                    <label for="">Phone Numper</label>
+                                    <input type="text" name="phone" class="bor8 bg0 m-b-12" style="font-size: 15px; width: 300px; height: 35px ;" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col form-group">
+                                    <label for="">Addres Line 1</label>
+                                    <input type="text" name="address_line_1" class="bor8 bg0 m-b-12" style="font-size: 15px; width: 300px; height: 35px ;" required>
+                                </div>
+                                <div class="col form-group">
+                                    <label for="">Addres Line 2</label>
+                                    <input type="text" name="address_line_2" class="bor8 bg0 m-b-12" style="font-size: 15px; width: 300px; height: 35px ;">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col form-group">
+                                    <label for="">City</label>
+                                    <input type="text" name="city" class="bor8 bg0 m-b-12" style="font-size: 15px; width: 200px; height: 35px ;" required>
+                                </div>
+                                <div class="col form-group">
+                                    <label for="">State</label>
+                                    <input type="text" name="state" class="bor8 bg0 m-b-12" style="font-size: 15px; width: 200px; height: 35px ;" required>
+                                </div>
+                                <div class="col form-group">
+                                    <label for="">Country</label>
+                                    <input type="text" name="country" class="bor8 bg0 m-b-12" style="font-size: 15px; width: 200px; height: 35px ;" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="">Order Note</label>
+                                <textarea name="order_note" rows="2" class="bor8 bg0 m-b-12" style="font-size: 15px; width: 600px; height: 120px ;"></textarea>
+                            </div>
+                            
+
+                        
+                    </div>
+                </div> <!-- card.// -->
+
+            </aside> <!-- col.// -->
+            <aside class="col-lg-6">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <table class="table table-borderless table-shopping-cart">
+                            <thead class="text-muted">
+                                <tr class="small text-uppercase">
+                                    <th scope="col">Product</th>
+                                    <th scope="col" width="120">Quantity</th>
+                                    <th scope="col" width="120">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+								
+								<tr class="table_row ConTent" data-content="{{item.product.id}}" data-size="{{item.size}}"data-color="{{item.color}}" >
+									<td class="column-1" >
+										<div style="position: relative; ">
+											<a href="{% url 'product_details' item.product.id %}">
+												<img src="{{item.product.image.url}}" alt="IMG" width="90" height="105" class="move-right"></a>
+												<br>
+												<div>
+													<br>
+
+													<button class="delete-button-iTem" data-product-id-delete="{{item.product.id}}"  data-color="{{item.color}}" data-size="{{item.size}}" type="button" style="position: absolute; top: -1px; right: 0px; width: 20px; height: 20px; border-radius: 50%;"
+													></button>
+												</div>
+											</div>
+										</td>
+										<td class="column-2">
+											<div>
+												<a class="stext-110 cl2" href="{% url 'product_details' item.product.id %}">
+													{{item.product.product_name}}
+												</a>
+												<br>
+												<span>
+													Size : {{item.size}}
+												</span>
+												<br>
+												<span>
+													Color : {{item.color}}
+												</span>
+											</div>
+										</td>
+										<td class="column-3">$ {{item.product.price}}</td>
+										<td class="column-4">
+											<div class="wrap-num-product flex-w m-l-auto m-r-0">
+												<input class="mtext-104 cl3 txt-center num-product pRodUct-Qty" type="number" name="num-product1" value="{{item.quantity}}" data-qty="{{item.product.id}}" data-color="{{item.color}}"data-size="{{item.size}}" readonly>
+											</div>
+										</td>
+										
+										
+										<td class="column-5 SUb-totAl" data-subtotal-id="{{item.product.id}}"data-subtotal-color="{{item.color}}"data-subtotal-size="{{item.size}}">$ {{item.sub_total}}</td>
+									</tr>
+									<input type="hidden" class="Thj-PrICEE" value="{{item.product.price}}" data-pprice="{{item.product.id}}">
+									{% endfor %}
+                            </tbody>
+                        </table>
+                        <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" type="submit" name="submit" >Go to payment</button>
+                    </form>
+                    </div> <!-- card-body.// -->
+                </div> <!-- card.// -->
+
+            </aside> <!-- col.// -->
+
+
+        </div> <!-- row.// -->
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <!-- ============================ COMPONENT 1 END .// ================================= -->
+
+    </div> <!-- container .//  -->
